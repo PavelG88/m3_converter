@@ -116,6 +116,11 @@ main {
     color: white;
 }
 
+.sale__select, .buy__select {
+    background-color: #833AE0;
+    color: white;
+}
+
 .sale__saleField, .buy__buyField {
     width: 260px;
     padding: 10px 15px 50px 15px;
@@ -136,7 +141,7 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none;
 }
 
-.sale__comment, .buy__comment {
+.sale__forex, .buy__forex {
     position: absolute;
     bottom: 10px;
     left: 15px;
