@@ -60,7 +60,7 @@ class Convert {
                 // console.log(data.rates[symbol]);
                 this.forexToSale = data.rates[symbol];
                 this.forexToBuy = 1 / this.forexToSale;
-                this.updateInfo();
+                this.updateInfo(true);
             })
             .catch(error => {
                 alert('Что-то пошло не так. Попробуйте ещё раз');
