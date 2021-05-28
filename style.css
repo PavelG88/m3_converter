@@ -10,7 +10,7 @@ header {
     background-color: #F5F5F6;
 }
 
-.wrapper {
+.header__wrapper {
     max-width: 1152px;
     margin: 0 auto;
     box-sizing: border-box;
@@ -32,14 +32,29 @@ header {
     flex-wrap: wrap;
 }
 
+.central-wrapper {
+    max-width: 640px;
+    box-sizing: border-box;
+    padding: 10px;
+    
+}
+
 .header__menu_text {
-    margin: 10px 20px;
+    margin: 0 10px;
     text-transform: uppercase;
     cursor: pointer;
     font-weight: 500;
     font-size: 11px;
     line-height: 13px;
     color: #959BA4;
+}
+
+.header__menu_text:first-child {
+    margin-left: 0;
+}
+
+.header__menu_text:last-child {
+    margin-right: 0;
 }
 
 .header__button {
@@ -54,10 +69,7 @@ header {
 }
 
 main {
-    max-width: 640px;
-    box-sizing: border-box;
     margin: 50px auto;
-    padding: 10px;
 }
 
 .main__title {
@@ -68,16 +80,16 @@ main {
     line-height: 42px;
 }
 
-.main__workSpace {
+.main__work-space {
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
 }
 
-.workSpace__sale, .workSpace__buy {
-    position: relative;
-}
+/* .work-space__sale, .work-space__buy {
+    
+} */
 
 .sale__text, .buy__text {
     font-size: 12px;
@@ -118,23 +130,31 @@ main {
     color: white;
 }
 
-.sale__select, .buy__select {
+.sale__selected, .buy__selected {
     background-color: #833AE0;
     color: white;
 }
 
-.sale__saleField, .buy__buyField {
+.sale__input, .buy__input {
     max-width: 260px;
-    padding: 10px 15px 50px 15px;
-    box-sizing: border-box;
+    margin: 0;
     border: 1px solid #C6C6C6;
     border-radius: 2px;
+    padding: 10px 15px;
+    box-sizing: border-box;
+}
+
+.sale__saleField, .buy__buyField {
+    width: 100%;
     resize: none;
     font-weight: bold;
     font-size: 36px;
     line-height: 42px;
     text-align: left;
     margin: 0;
+    margin-bottom: 10px;
+    border: none;
+    outline: none;
 }
 
 /* Убрать стрелки в поле ввода суммы */
@@ -144,9 +164,6 @@ input::-webkit-inner-spin-button {
 }
 
 .sale__forex, .buy__forex {
-    position: absolute;
-    bottom: 10px;
-    left: 15px;
     font-size: 12px;
     line-height: 14px;
     color: #C6C6C6;

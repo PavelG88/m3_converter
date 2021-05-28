@@ -3,8 +3,8 @@ const apiKey = 'ccc57ef6f9aa2f4b6dd2f9a79df64055';
 
 class Convert {
     constructor() {
-        this.currensyChoisToSale = document.querySelector('.sale__select');
-        this.currensyChoisToBuy = document.querySelector('.buy__select');
+        this.currensyChoisToSale = document.querySelector('.sale__selected');
+        this.currensyChoisToBuy = document.querySelector('.buy__selected');
         this.fieldValueCurrensyToSale = document.querySelector('[name="sale"]');
         this.fieldValueCurrensyToBuy = document.querySelector('[name="buy"]');
         this.fieldForexToSale = document.querySelector('.sale__forex');
@@ -13,15 +13,15 @@ class Convert {
         this.forexToBuy = 0;
     }
 
-    setEventListenerForSelectCurrensy() {
+    setEventListenerForSelectedCurrensy() {
         let currensiesToSale = document.querySelectorAll('.sale__button_currency');
         let currensiesToBuy = document.querySelectorAll('.buy__button_currency');
         
         currensiesToSale.forEach((currency) => {
             currency.addEventListener('click', (event) => {
-                this.currensyChoisToSale.classList.remove('sale__select');
+                this.currensyChoisToSale.classList.remove('sale__selected');
                 this.currensyChoisToSale = event.target;
-                this.currensyChoisToSale.classList.add('sale__select');
+                this.currensyChoisToSale.classList.add('sale__selected');
                 this.geneateRequest(this.currensyChoisToSale.textContent, this.currensyChoisToBuy.textContent);
                 this.updateInfo(true);
             })
@@ -29,10 +29,10 @@ class Convert {
 
         currensiesToBuy.forEach((currency) => {
             currency.addEventListener('click', (event) => {
-                this.currensyChoisToBuy.classList.remove('buy__select');
+                this.currensyChoisToBuy.classList.remove('buy__selected');
                 this.currensyChoisToBuy = event.target;
-                this.currensyChoisToBuy.classList.add('buy__select');
-                this.geneateRequest(this.currensyChoisToBuy.textContent, this.currensyChoisToSale.textContent);
+                this.currensyChoisToBuy.classList.add('buy__selected');
+                this.geneateRequest(this.currensyChoisToSale.textContent, this.currensyChoisToBuy.textContent);
                 this.updateInfo(false);
             })
         });
@@ -48,7 +48,7 @@ class Convert {
         });
     }
 
-    geneateRequest(base='EUR', symbol='USD')  {
+    geneateRequest(base, symbol)  {
         if (base === symbol) {
             this.forexToSale = this.forexToBuy = 1;
             return;
@@ -79,8 +79,8 @@ class Convert {
     }
 
     init() {
-        this.geneateRequest();
-        this.setEventListenerForSelectCurrensy();
+        this.geneateRequest(this.currensyChoisToSale.textContent, this.currensyChoisToBuy.textContent);
+        this.setEventListenerForSelectedCurrensy();
         this.setEventListenerForInput();
     }
 }
