@@ -80,6 +80,14 @@ main {
     line-height: 42px;
 }
 
+.main__error {
+    margin: 5px 0;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 14px;
+    display: none;
+}
+
 .main__work-space {
     display: flex;
     justify-content: space-between;

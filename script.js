@@ -13,6 +13,9 @@ class Convert {
         this.forexToBuy = 0;
     }
 
+    /**
+     * Добавить обработчик событий при изменении валюты
+     */
     setEventListenerForSelectedCurrensy() {
         let currensiesToSale = document.querySelectorAll('.sale__button_currency');
         let currensiesToBuy = document.querySelectorAll('.buy__button_currency');
@@ -23,7 +26,6 @@ class Convert {
                 this.currensyChoisToSale = event.target;
                 this.currensyChoisToSale.classList.add('sale__selected');
                 this.geneateRequest(this.currensyChoisToSale.textContent, this.currensyChoisToBuy.textContent);
-                this.updateInfo(true);
             })
         });
 
@@ -33,11 +35,13 @@ class Convert {
                 this.currensyChoisToBuy = event.target;
                 this.currensyChoisToBuy.classList.add('buy__selected');
                 this.geneateRequest(this.currensyChoisToSale.textContent, this.currensyChoisToBuy.textContent);
-                this.updateInfo(false);
             })
         });
     }
 
+    /**
+     * Добавить обработчик событий при вводе суммы для обмена
+     */
     setEventListenerForInput() {
         this.fieldValueCurrensyToSale.addEventListener('input', () => {
             this.updateInfo(true);
@@ -48,11 +52,20 @@ class Convert {
         });
     }
 
+    /**
+     * Запрос курса валюты на сервере
+     * @param {*} base Валюта, которую хотим поменять
+     * @param {*} symbol Валюта, на которую хотим поменять
+     */
     geneateRequest(base, symbol)  {
         if (base === symbol) {
             this.forexToSale = this.forexToBuy = 1;
+            this.updateInfo();
             return;
         }
+        
+        let messageError = document.querySelector('.main__error');
+        messageError.style.display = 'none';
         
         fetch(url+`access_key=${apiKey}&base=${base}&symbols=${symbol}`)
             .then(request => request.json())
@@ -60,22 +73,39 @@ class Convert {
                 // console.log(data.rates[symbol]);
                 this.forexToSale = data.rates[symbol];
                 this.forexToBuy = 1 / this.forexToSale;
-                this.updateInfo(true);
+                this.updateInfo();
             })
             .catch(error => {
-                alert('Что-то пошло не так. Попробуйте ещё раз');
+                messageError.style.display = 'block';
+                this.forexToSale = this.forexToBuy = 0;
+                this.updateInfo();
                 console.log(error);
             })
     }
 
+    /**
+     * Обновление информации на странице
+     * @param {*} isSale Изменяем валюту, которая есть (по умолчанию TRUE)
+     */
     updateInfo(isSale = true) {
-        this.fieldForexToSale.textContent = `1 ${this.currensyChoisToSale.textContent} = ${this.forexToSale} ${this.currensyChoisToBuy.textContent}`;
-        this.fieldForexToBuy.textContent = `1 ${this.currensyChoisToBuy.textContent} = ${this.forexToBuy} ${this.currensyChoisToSale.textContent}`;
+        this.fieldForexToSale.textContent = `1 ${this.currensyChoisToSale.textContent} = ${this.forexToSale.toFixed(4)} ${this.currensyChoisToBuy.textContent}`;
+        this.fieldForexToBuy.textContent = `1 ${this.currensyChoisToBuy.textContent} = ${this.forexToBuy.toFixed(4)} ${this.currensyChoisToSale.textContent}`;
         if (isSale) {
-            this.fieldValueCurrensyToBuy.value = this.fieldValueCurrensyToSale.value * this.forexToSale;
+            this.fieldValueCurrensyToBuy.value = this.roundNumber((this.fieldValueCurrensyToSale.value * this.forexToSale));
         } else {
-            this.fieldValueCurrensyToSale.value = this.fieldValueCurrensyToBuy.value * this.forexToBuy;
+            this.fieldValueCurrensyToSale.value = this.roundNumber((this.fieldValueCurrensyToBuy.value * this.forexToBuy));
         }
+    }
+
+    /**
+     * Округление до 4 знаков после запятой
+     * @param {*} number Числок, которое округляем
+     * @returns Округленное число
+     */
+    roundNumber(number) {
+        //сколько знаков после запятой нужно
+        let i = 4;
+        return Math.round(number * (10 ** i)) / (10 ** i)
     }
 
     init() {
