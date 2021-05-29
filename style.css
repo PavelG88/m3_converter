@@ -87,9 +87,9 @@ main {
     flex-wrap: wrap;
 }
 
-/* .work-space__sale, .work-space__buy {
-    
-} */
+.work-space__sale, .work-space__buy {
+    max-width: 260px
+}
 
 .sale__text, .buy__text {
     font-size: 12px;
@@ -105,6 +105,9 @@ main {
     color: #C6C6C6;
     cursor: pointer;
     display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    flex-grow: 1;
     margin-bottom: 20px;
 }
 
@@ -136,7 +139,7 @@ main {
 }
 
 .sale__input, .buy__input {
-    max-width: 260px;
+    width: 100%;
     margin: 0;
     border: 1px solid #C6C6C6;
     border-radius: 2px;
