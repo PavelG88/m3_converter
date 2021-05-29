@@ -26,28 +26,28 @@
     </header>
     <main class="central-wrapper">
         <h1 class="main__title">Конвертер валют онлайн</h1>
-        <div class="main__error">Что-то пошло не так. Попробуйте ещё раз</div>
+        <div class="main__error"></div>
         <div class="main__work-space">
             <div class="work-space__sale">
                 <p class="sale__text">У меня есть</p>
                 <div class="sale__button">
-                    <div class="sale__button_currency">RUB</div>
-                    <div class="sale__button_currency">USD</div>
-                    <div class="sale__button_currency sale__selected">EUR</div>
-                    <div class="sale__button_currency">GBR</div>
+                    <div class="sale__button_currency" data-currency="RUB">RUB</div>
+                    <div class="sale__button_currency" data-currency="USD">USD</div>
+                    <div class="sale__button_currency sale__selected" data-currency="EUR">EUR</div>
+                    <div class="sale__button_currency" data-currency="GBP">GBP</div>
                 </div>
                 <div class="sale__input">
-                    <input type="number" name="sale" class="sale__saleField" step="0.01" value=1>
+                    <input type="number" name="sale" class="sale__saleField" step="0.0001" value=1>
                     <div class="sale__forex">1 EUR = </div>
                 </div>
             </div>
             <div class="work-space__buy">
                 <p class="buy__text">Хочу приобрести</p>
                 <div class="buy__button">
-                    <div class="buy__button_currency">RUB</div>
-                    <div class="buy__button_currency buy__selected">USD</div>
-                    <div class="buy__button_currency">EUR</div>
-                    <div class="buy__button_currency">GBR</div>
+                    <div class="buy__button_currency" data-currency="RUB">RUB</div>
+                    <div class="buy__button_currency buy__selected" data-currency="USD">USD</div>
+                    <div class="buy__button_currency" data-currency="EUR">EUR</div>
+                    <div class="buy__button_currency" data-currency="GBP">GBP</div>
                 </div>
                 <div class="buy__input">
                     <input type="number" name="buy" class="buy__buyField" step="0.0001" value=1>
