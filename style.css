@@ -126,17 +126,17 @@ main {
    margin: 0;
 }
 
-.sale__button_currency:first-child, .buy__button_currency:first-child .selecting-currency-action__button:first-child {
+.sale__button_currency:first-child, .buy__button_currency:first-child, .selecting-currency-action__button:first-child {
     border-top-left-radius: 2px;
     border-bottom-left-radius: 2px;
 }
 
-.sale__button_currency:last-child, .buy__button_currency:last-child .selecting-currency-action__button:last-child {
+.sale__button_currency:last-child, .buy__button_currency:last-child, .selecting-currency-action__button:last-child {
     border-top-right-radius: 2px;
     border-bottom-right-radius: 2px;
 }
 
-.sale__button_currency:hover, .buy__button_currency:hover .selecting-currency-action__button:hover{
+.sale__button_currency:hover, .buy__button_currency:hover, .selecting-currency-action__button:hover{
     background-color: #833AE0;
     color: white;
 }
