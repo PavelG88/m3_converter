@@ -27,35 +27,35 @@
     <main class="central-wrapper">
         <h1 class="main__title">Конвертер валют онлайн</h1>
         <div class="main__selecting-currency-action">
-            <div class="selecting-currency-action__button action-selected" data-action="base">Продажа</div>
-            <div class="selecting-currency-action__button" data-action="additional">Покупка</div>
+            <div class="selecting-currency-action__button action-selected" data-action="sale">Продажа</div>
+            <div class="selecting-currency-action__button" data-action="buy">Покупка</div>
         </div>
         <div class="main__error"></div>
         <div class="main__work-space">
-            <div class="work-space__base">
-                <p class="base__text">У меня есть</p>
-                <div class="base__button">
-                    <div class="base__button_currency" data-currency="RUB">RUB</div>
-                    <div class="base__button_currency" data-currency="USD">USD</div>
-                    <div class="base__button_currency base__selected" data-currency="EUR">EUR</div>
-                    <div class="base__button_currency" data-currency="GBP">GBP</div>
+            <div class="work-space__sale">
+                <p class="sale__text">У меня есть</p>
+                <div class="sale__button">
+                    <div class="sale__button_currency" data-currency="RUB">RUB</div>
+                    <div class="sale__button_currency" data-currency="USD">USD</div>
+                    <div class="sale__button_currency sale__selected" data-currency="EUR">EUR</div>
+                    <div class="sale__button_currency" data-currency="GBP">GBP</div>
                 </div>
-                <div class="base__input">
-                    <input type="number" name="base" class="base__input-field" step="0.0001" value=1>
-                    <div class="base__forex">1 EUR = </div>
+                <div class="sale__input">
+                    <input type="number" name="sale" class="sale__input-field" step="0.0001" value=1>
+                    <div class="sale__forex">1 EUR = </div>
                 </div>
             </div>
-            <div class="work-space__additional">
-                <p class="additional__text">Хочу приобрести</p>
-                <div class="additional__button">
-                    <div class="additional__button_currency" data-currency="RUB">RUB</div>
-                    <div class="additional__button_currency additional__selected" data-currency="USD">USD</div>
-                    <div class="additional__button_currency" data-currency="EUR">EUR</div>
-                    <div class="additional__button_currency" data-currency="GBP">GBP</div>
+            <div class="work-space__buy">
+                <p class="buy__text">Хочу приобрести</p>
+                <div class="buy__button">
+                    <div class="buy__button_currency" data-currency="RUB">RUB</div>
+                    <div class="buy__button_currency buy__selected" data-currency="USD">USD</div>
+                    <div class="buy__button_currency" data-currency="EUR">EUR</div>
+                    <div class="buy__button_currency" data-currency="GBP">GBP</div>
                 </div>
-                <div class="additional__input">
-                    <input type="number" name="additional" class="additional__input-field" step="0.0001" value=1>
-                    <div class="additional__forex">1 USD = </div>
+                <div class="buy__input">
+                    <input type="number" name="buy" class="buy__input-field" step="0.0001" value=1>
+                    <div class="buy__forex">1 USD = </div>
                 </div>
             </div>
         </div>

@@ -95,18 +95,18 @@ main {
     flex-wrap: wrap;
 }
 
-.work-space__base, .work-space__additional {
+.work-space__sale, .work-space__buy {
     max-width: 260px
 }
 
-.base__text, .additional__text {
+.sale__text, .buy__text {
     font-size: 12px;
     line-height: 14px;
     color: #9F9F9F;
     margin-bottom: 12px;
 }
 
-.base__button, .additional__button {
+.sale__button, .buy__button {
     width: 100%;
     font-size: 12px;
     line-height: 14px;
@@ -119,34 +119,34 @@ main {
     margin-bottom: 20px;
 }
 
-.base__button_currency, .additional__button_currency {
+.sale__button_currency, .buy__button_currency {
    border: 1px solid #C6C6C6; 
    padding: 8px 20px;
    box-sizing: border-box;
    margin: 0;
 }
 
-.base__button_currency:first-child, .additional__button_currency:first-child .selecting-currency-action__button:first-child {
+.sale__button_currency:first-child, .buy__button_currency:first-child .selecting-currency-action__button:first-child {
     border-top-left-radius: 2px;
     border-bottom-left-radius: 2px;
 }
 
-.base__button_currency:last-child, .additional__button_currency:last-child .selecting-currency-action__button:last-child {
+.sale__button_currency:last-child, .buy__button_currency:last-child .selecting-currency-action__button:last-child {
     border-top-right-radius: 2px;
     border-bottom-right-radius: 2px;
 }
 
-.base__button_currency:hover, .additional__button_currency:hover .selecting-currency-action__button:hover{
+.sale__button_currency:hover, .buy__button_currency:hover .selecting-currency-action__button:hover{
     background-color: #833AE0;
     color: white;
 }
 
-.base__selected, .additional__selected, .action-selected {
+.sale__selected, .buy__selected, .action-selected {
     background-color: #833AE0;
     color: white;
 }
 
-.base__input, .additional__input {
+.sale__input, .buy__input {
     width: 100%;
     margin: 0;
     border: 1px solid #C6C6C6;
@@ -155,7 +155,7 @@ main {
     box-sizing: border-box;
 }
 
-.base__input-field, .additional__input-field {
+.sale__input-field, .buy__input-field {
     width: 100%;
     resize: none;
     font-weight: bold;
@@ -174,7 +174,7 @@ input::-webkit-inner-spin-button {
     -webkit-appearance: none;
 }
 
-.base__forex, .additional__forex {
+.sale__forex, .buy__forex {
     font-size: 12px;
     line-height: 14px;
     color: #C6C6C6;

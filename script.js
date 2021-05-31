@@ -3,15 +3,15 @@ class Convert {
     constructor() {
         this.url = 'http://api.exchangeratesapi.io/v1/latest?';
         this.apiKey = 'ccc57ef6f9aa2f4b6dd2f9a79df64055';
-        this.currensyChoiceBase = document.querySelector('.base__selected');
-        this.currensyChoiceAdditional = document.querySelector('.additional__selected');
+        this.currensyChoiceSale = document.querySelector('.sale__selected');
+        this.currensyChoiceBuy = document.querySelector('.buy__selected');
         this.actionChoice = document.querySelector('.action-selected');
-        this.fieldValueCurrensyBase = document.querySelector('[name="base"]');
-        this.fieldValueCurrensyAdditional = document.querySelector('[name="additional"]');
-        this.fieldForexBase = document.querySelector('.base__forex');
-        this.fieldForexAdditional = document.querySelector('.additional__forex');
-        this.forexBase = 0;
-        this.forexAdditional = 0;
+        this.fieldValueCurrensySale = document.querySelector('[name="sale"]');
+        this.fieldValueCurrensyBuy = document.querySelector('[name="buy"]');
+        this.fieldForexSale = document.querySelector('.sale__forex');
+        this.fieldForexBuy = document.querySelector('.buy__forex');
+        this.forexSale = 0;
+        this.forexBuy = 0;
         this.isSale = true;
     }
  
@@ -25,12 +25,12 @@ class Convert {
                 this.actionChoice.classList.remove('action-selected');
                 this.actionChoice = event.target;
                 this.actionChoice.classList.add('action-selected');
-                if (this.actionChoice.dataset.action === 'base') {
+                if (this.actionChoice.dataset.action === 'sale') {
                     this.isSale = true;
                 } else {
                     this.isSale = false;
                 }
-                this.GetExchangeRateFromServer(this.currensyChoiceBase.dataset.currency, this.currensyChoiceAdditional.dataset.currency);
+                this.GetExchangeRateFromServer(this.currensyChoiceSale.dataset.currency, this.currensyChoiceBuy.dataset.currency);
                 this.renderWorkSpace();
             })
         });
@@ -39,24 +39,24 @@ class Convert {
      * Добавить обработчик событий при изменении валюты
      */
     setEventListenerForSelectedCurrensy() {
-        let currensiesBase = document.querySelectorAll('.base__button_currency');
-        let currensiesAdditional = document.querySelectorAll('.additional__button_currency');
+        let currensiesSale = document.querySelectorAll('.sale__button_currency');
+        let currensiesBuy = document.querySelectorAll('.buy__button_currency');
         
-        currensiesBase.forEach((currency) => {
+        currensiesSale.forEach((currency) => {
             currency.addEventListener('click', (event) => {
-                this.currensyChoiceBase.classList.remove('base__selected');
-                this.currensyChoiceBase = event.target;
-                this.currensyChoiceBase.classList.add('base__selected');
-                this.GetExchangeRateFromServer(this.currensyChoiceBase.dataset.currency, this.currensyChoiceAdditional.dataset.currency);
+                this.currensyChoiceSale.classList.remove('sale__selected');
+                this.currensyChoiceSale = event.target;
+                this.currensyChoiceSale.classList.add('sale__selected');
+                this.GetExchangeRateFromServer(this.currensyChoiceSale.dataset.currency, this.currensyChoiceBuy.dataset.currency);
             })
         });
 
-        currensiesAdditional.forEach((currency) => {
+        currensiesBuy.forEach((currency) => {
             currency.addEventListener('click', (event) => {
-                this.currensyChoiceAdditional.classList.remove('additional__selected');
-                this.currensyChoiceAdditional = event.target;
-                this.currensyChoiceAdditional.classList.add('additional__selected');
-                this.GetExchangeRateFromServer(this.currensyChoiceBase.dataset.currency, this.currensyChoiceAdditional.dataset.currency);
+                this.currensyChoiceBuy.classList.remove('buy__selected');
+                this.currensyChoiceBuy = event.target;
+                this.currensyChoiceBuy.classList.add('buy__selected');
+                this.GetExchangeRateFromServer(this.currensyChoiceSale.dataset.currency, this.currensyChoiceBuy.dataset.currency);
             })
         });
     }
@@ -65,11 +65,11 @@ class Convert {
      * Добавить обработчик событий при вводе суммы для обмена
      */
     setEventListenerForInput() {
-        this.fieldValueCurrensyBase.addEventListener('input', () => {
+        this.fieldValueCurrensySale.addEventListener('input', () => {
             this.updateInfo(true);
         });
 
-        this.fieldValueCurrensyAdditional.addEventListener('input', () => {
+        this.fieldValueCurrensyBuy.addEventListener('input', () => {
             this.updateInfo(false);
         });
     }
@@ -81,7 +81,7 @@ class Convert {
      */
     GetExchangeRateFromServer(base, symbol)  {
         if (base === symbol) {
-            this.forexBase = this.forexAdditional = 1;
+            this.forexSale = this.forexBuy = 1;
             this.updateInfo();
             return;
         }
@@ -93,13 +93,13 @@ class Convert {
             .then(request => request.json())
             .then(data => {
                 // console.log(data.rates[symbol]);
-                this.forexBase = data.rates[symbol];
-                this.forexAdditional = 1 / this.forexBase;
+                this.forexSale = data.rates[symbol];
+                this.forexBuy = 1 / this.forexSale;
                 this.updateInfo();
             })
             .catch(error => {
                 messageError.textContent = 'Что-то пошло не так. Попробуйте ещё раз';
-                this.forexBase = this.forexAdditional = 0;
+                this.forexSale = this.forexBuy = 0;
                 this.updateInfo();
                 console.log(error);
             })
@@ -110,12 +110,13 @@ class Convert {
      * @param {*} isCurrencyAvailable Изменяем основную валюты, относительно которой считаем (по умолчанию TRUE)
      */
     updateInfo(isCurrencyAvailable = true) {
-        this.fieldForexBase.textContent = `1 ${this.currensyChoiceBase.textContent} = ${this.forexBase.toFixed(4)} ${this.currensyChoiceAdditional.textContent}`;
-        this.fieldForexAdditional.textContent = `1 ${this.currensyChoiceAdditional.textContent} = ${this.forexAdditional.toFixed(4)} ${this.currensyChoiceBase.textContent}`;
+        this.fieldForexSale.textContent = `1 ${this.currensyChoiceSale.textContent} = ${this.forexSale.toFixed(4)} ${this.currensyChoiceBuy.textContent}`;
+        this.fieldForexBuy.textContent = `1 ${this.currensyChoiceBuy.textContent} = ${this.forexBuy.toFixed(4)} ${this.currensyChoiceSale.textContent}`;
+        isCurrencyAvailable = this.isSale ? true : false;
         if (isCurrencyAvailable) {
-            this.fieldValueCurrensyAdditional.value = this.roundNumber((this.fieldValueCurrensyBase.value * this.forexBase));
+            this.fieldValueCurrensyBuy.value = this.roundNumber((this.fieldValueCurrensySale.value * this.forexSale));
         } else {
-            this.fieldValueCurrensyBase.value = this.roundNumber((this.fieldValueCurrensyAdditional.value * this.forexAdditional));
+            this.fieldValueCurrensySale.value = this.roundNumber((this.fieldValueCurrensyBuy.value * this.forexBuy));
         }
     }
 
@@ -134,20 +135,25 @@ class Convert {
      * Обновление области ввода в зависимости от продаем или покупаем
      */
     renderWorkSpace() {
-        let baseText = document.querySelector('.base__text');
-        let additionalText = document.querySelector('.additional__text');
+        let saleText = document.querySelector('.sale__text');
+        let buyText = document.querySelector('.buy__text');
+        let workSpaceSale = document.querySelector('.work-space__sale');
+        let workSpace = document.querySelector('.main__work-space');
+        workSpaceSale.remove();
         
         if(this.isSale) {
-            baseText.textContent = 'У меня есть';
-            additionalText.textContent = 'Хочу приобрести';
+            workSpace.prepend(workSpaceSale);
+            saleText.textContent = 'У меня есть';
+            buyText.textContent = 'Хочу приобрести';
         } else {
-            baseText.textContent = 'Хочу приобрести';
-            additionalText.textContent = 'Для покупки мне нужно';
+            workSpace.append(workSpaceSale);
+            saleText.textContent = 'Для покупки мне нужно';
+            buyText.textContent = 'Хочу приобрести';
         }
     }
 
     init() {
-        this.GetExchangeRateFromServer(this.currensyChoiceBase.dataset.currency, this.currensyChoiceAdditional.dataset.currency);
+        this.GetExchangeRateFromServer(this.currensyChoiceSale.dataset.currency, this.currensyChoiceBuy.dataset.currency);
         this.setEventListenerForSelectedCurrensy();
         this.setEventListenerForSelectedAction();
         this.setEventListenerForInput();
