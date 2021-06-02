@@ -33,7 +33,7 @@ class Convert {
                 } else {
                     this.isSale = false;
                 }
-                this.GetExchangeRateFromServer(this.currensyChoiceSale.dataset.currency, this.currensyChoiceBuy.dataset.currency);
+                this.getExchangeRateFromServer(this.currensyChoiceSale.dataset.currency, this.currensyChoiceBuy.dataset.currency);
                 this.renderWorkSpace();
             })
         });
@@ -52,7 +52,7 @@ class Convert {
                 this.currensyChoiceSale.classList.add('sale__selected');
                 this.isCurrencySale = true;
                 this.setPreloader();
-                this.GetExchangeRateFromServer(this.currensyChoiceSale.dataset.currency, this.currensyChoiceBuy.dataset.currency);
+                this.getExchangeRateFromServer(this.currensyChoiceSale.dataset.currency, this.currensyChoiceBuy.dataset.currency);
             })
         });
 
@@ -63,7 +63,7 @@ class Convert {
                 this.currensyChoiceBuy.classList.add('buy__selected');
                 this.isCurrencySale = false;
                 this.setPreloader();
-                this.GetExchangeRateFromServer(this.currensyChoiceSale.dataset.currency, this.currensyChoiceBuy.dataset.currency);
+                this.getExchangeRateFromServer(this.currensyChoiceSale.dataset.currency, this.currensyChoiceBuy.dataset.currency);
             })
         });
     }
@@ -114,7 +114,7 @@ class Convert {
      * @param {*} base Валюта, которую хотим поменять
      * @param {*} symbol Валюта, на которую хотим поменять
      */
-    GetExchangeRateFromServer(base, symbol)  {
+    getExchangeRateFromServer(base, symbol)  {
         if (base === symbol) {
             this.forexSale = this.forexBuy = 1;
             this.deletePreloader();
@@ -189,7 +189,7 @@ class Convert {
 
     init() {
         this.setPreloader();
-        this.GetExchangeRateFromServer(this.currensyChoiceSale.dataset.currency, this.currensyChoiceBuy.dataset.currency);
+        this.getExchangeRateFromServer(this.currensyChoiceSale.dataset.currency, this.currensyChoiceBuy.dataset.currency);
         this.setEventListenerForSelectedCurrensy();
         this.setEventListenerForSelectedAction();
         this.setEventListenerForInput();
