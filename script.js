@@ -15,6 +15,7 @@ class Convert {
         this.isSale = true;
         this.preloaderFieldSale = document.querySelector('.sale__button_currency.preloader');
         this.preloaderFieldBuy = document.querySelector('.buy__button_currency.preloader');
+        this.isFieldSale = true;
         this.isCurrencySale = true;
     }
  
@@ -50,7 +51,8 @@ class Convert {
                 this.currensyChoiceSale.classList.remove('sale__selected');
                 this.currensyChoiceSale = event.target;
                 this.currensyChoiceSale.classList.add('sale__selected');
-                this.isCurrencySale = true;
+                this.isFieldSale = true;
+                this.isCurrencySale = this.isSale ? this.isCurrencySale : !this.isCurrencySale;
                 this.setPreloader();
                 this.getExchangeRateFromServer(this.currensyChoiceSale.dataset.currency, this.currensyChoiceBuy.dataset.currency);
             })
@@ -61,7 +63,8 @@ class Convert {
                 this.currensyChoiceBuy.classList.remove('buy__selected');
                 this.currensyChoiceBuy = event.target;
                 this.currensyChoiceBuy.classList.add('buy__selected');
-                this.isCurrencySale = false;
+                this.isFieldSale = false;
+                this.isCurrencySale = this.isSale ? this.isCurrencySale : !this.isCurrencySale;
                 this.setPreloader();
                 this.getExchangeRateFromServer(this.currensyChoiceSale.dataset.currency, this.currensyChoiceBuy.dataset.currency);
             })
@@ -73,10 +76,12 @@ class Convert {
      */
     setEventListenerForInput() {
         this.fieldValueCurrensySale.addEventListener('input', () => {
+            this.isCurrencySale = true;
             this.updateInfo();
         });
 
         this.fieldValueCurrensyBuy.addEventListener('input', () => {
+            this.isCurrencySale = false;
             this.updateInfo();
         });
     }
@@ -85,7 +90,7 @@ class Convert {
      * Добавить Preloader
      */
     setPreloader() {
-        if (this.isCurrencySale) {
+        if (this.isFieldSale) {
             this.currensyChoiceSale.after(this.preloaderFieldSale);
             this.preloaderFieldSale.style.display = 'block';
             this.currensyChoiceSale.style.display = 'none';
@@ -100,7 +105,7 @@ class Convert {
      * Удалить Preloader
      */
     deletePreloader() {
-        if (this.isCurrencySale) {
+        if (this.isFieldSale) {
             this.preloaderFieldSale.style.display = 'none';
             this.currensyChoiceSale.style.display = 'block';
         } else {
@@ -149,13 +154,14 @@ class Convert {
     updateInfo() {
         this.fieldForexSale.textContent = `1 ${this.currensyChoiceSale.textContent} = ${this.forexSale.toFixed(4)} ${this.currensyChoiceBuy.textContent}`;
         this.fieldForexBuy.textContent = `1 ${this.currensyChoiceBuy.textContent} = ${this.forexBuy.toFixed(4)} ${this.currensyChoiceSale.textContent}`;
-        let isActiveFieldSale = this.isCurrencySale;
-        isActiveFieldSale = this.isSale ? true : false;
-        if (isActiveFieldSale) {
+
+        if (this.isCurrencySale) {
             this.fieldValueCurrensyBuy.value = this.roundNumber((this.fieldValueCurrensySale.value * this.forexSale));
         } else {
             this.fieldValueCurrensySale.value = this.roundNumber((this.fieldValueCurrensyBuy.value * this.forexBuy));
         }
+
+        this.isCurrencySale = true;
     }
 
     /**
